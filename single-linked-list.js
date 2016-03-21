@@ -3,7 +3,6 @@ function Node(data) {
   this.next = null;
 }
 
-
 function SinglyLinkedList() {
   this.head = null;
   this.tail = null;
@@ -13,85 +12,66 @@ function SinglyLinkedList() {
 SinglyLinkedList.prototype.add = function(data) {
   var node = new Node(data);
   if(!this.head) {
-    this.head = node;
-    this.tail = node;
-  }
-  else {
+    this.head=node;
+    this.tail=node;
+  } else {
     this.tail.next = node;
-    this.tail = node;
+    this.tail=node;
   }
   this.numberOfValues++;
 };
 
 SinglyLinkedList.prototype.remove = function(data) {
+  var previous = this.head;
   var current = this.head;
-  if(data === current.data){
-    this.head = this.head.next;
-    this.numberOfValues--;
-  }
-
-  else{
-    var previous = current;
-    current = current.next;
-
-    while(current){
-      if(data === current.data){
-        if(current === this.tail){
-          this.tail = previous;
-        }
-          previous.next = current.next;
-          this.numberOfValues--;
+  while(current){
+    if(current.data ===data){
+      if(current===this.head){
+        this.head=this.head.next;
       }
-      else{
-        previous = current;
+      if(current===this.tail){
+        this.tail=previous;
       }
-      current = current.next;
-    }
+      previous.next=current.next;
+      this.numberOfValues--;
+    }else{
+        previous=current;
+      }
+      current=current.next;
   }
-}
+};
 
 SinglyLinkedList.prototype.insertAfter = function(data, toNodeData) {
   var current = this.head;
-
-  while (current) {
-    if(current.data === toNodeData){
+  while(current){
+    if (current.data===toNodeData){
       var node = new Node(data);
+      if(current === this.tail){
+        this.tail.next=node;
+        this.tail=node;
+      }else{
+        node.next=current.next;
+        current.next=node;
+      }this.numberOfValues++;
 
-      if(current === this.tail){ //嘗試用add();
-        this.tail.next = node;
-        this.tail = node;
-      }
-
-      else{
-        node.next = current.next;
-        current.next = node;
-      }
-      this.numberOfValues++;
-    }
-
-    else{
-      console.log("Data not found!");
-    }
-
-    current = current.next;
+      
+    }current=current.next;
   }
-}
+};
 
 SinglyLinkedList.prototype.length = function() {
   return this.numberOfValues;
-}
+};
 
 SinglyLinkedList.prototype.print = function() {
-  var s = "";
+  var string ="";
   var current = this.head;
-
-  while (current) {
-    s += current.data + " ";
-    current = current.next;
+  while(current){
+    string += current.data+ ' ';
+    current=current.next;
   }
-
-  return s.trim();
-}
+  return string.trim();
+};
 
 
 /*
