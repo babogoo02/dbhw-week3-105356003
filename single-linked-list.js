@@ -3,6 +3,13 @@ function Node(data) {
   this.next = null;
 }
 
+
+function SinglyLinkedList() {
+  this.head = null;
+  this.tail = null;
+  this.numberOfValues = 0;
+}
+
 SinglyLinkedList.prototype.add = function(data) {
   var node = new Node(data);
   if(!this.head) {
